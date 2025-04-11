@@ -5,10 +5,11 @@ import (
 	"os"
 	"fmt"	
 	"log"
-	"net/http"
+	//"net/http"
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
 	"github.com/DylanCoon99/portfolio/backend/database"
+	"github.com/DylanCoon99/portfolio/backend/controllers"
 )
 
 
@@ -42,10 +43,12 @@ func main() {
 	// Define our routes here
 	api := r.Group("/api")
 	{
-		// GET projects
-
+		// GET all projects
+		api.GET("/projects", controllers.GetAllProjects)
+		// GET project by id
+		api.GET("/projects/:project_id", controllers.GetProjectByID)
 		// GET pictures
-
+		api.GET("/images", controllers.GetAllImages)
 		// 
 
 

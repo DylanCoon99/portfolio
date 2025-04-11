@@ -1,9 +1,10 @@
 package database
 
 import (
-	"gorm.io/driver/postgres"
-	"gorm.io/gorm"
 	"log"
+	"gorm.io/gorm"
+	"gorm.io/driver/postgres"
+	"github.com/DylanCoon99/portfolio/backend/models"
 	//"fmt"
 )
 
@@ -27,13 +28,13 @@ func ConnectDB(dsn string) error {
 	
 
 
-	/*
-	err = DB.AutoMigrate(&models.Listing{})    // check
+	
+	err = DB.AutoMigrate(&models.Project{})    // check
 	if err != nil {
 		log.Fatal("failed to migrate database: ", err)
 	}
 
-	*/
+	
 
 	log.Println("Database connected and migrated successfully!")
 	return nil
@@ -43,4 +44,30 @@ func ConnectDB(dsn string) error {
 
 func GetDB() *gorm.DB {
 	return DB
+}
+
+
+
+func GetAllProjects() ([]models.Project, error) {
+
+	var projects []models.Project
+
+	if err := DB.Find(&projects).Error; err != nil {
+		return nil, err
+	}
+
+	return projects, nil
+} 
+
+
+
+func GetProjectByID(project_id string) (*models.Project, error){
+
+	var project models.Project
+
+	if err := DB.Find(&project, project_id).Error; err != nil {
+		return nil, err
+	}
+
+	return &project, nil
 }
