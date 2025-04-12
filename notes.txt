@@ -1,0 +1,63 @@
+Postgres:
+
+Accessing psql:
+psql -U postgres -h localhost -p 5432 -d portfolio
+
+
+Listing all active databases:
+psql -U postgres -h localhost -p 5432 -l
+
+
+
+
+Projects Table Schema:
+CREATE TABLE projects (
+	project_id SERIAL PRIMARY KEY,
+	name TEXT NOT NULL,
+	date_range TEXT NOT NULL,
+	image_url TEXT NOT NULL,
+	github_url TEXT NOT NULL,
+	description TEXT NOT NULL
+);
+
+
+\dt : shows tables
+
+
+\d <TABLE-NAME> : describes a table
+
+
+TEST DATA FOR PROJECTS:
+INSERT INTO projects (name, date_range, image_url, github_url, description)
+VALUES (
+  'Personal Portfolio Website',
+  'Jan 2024 - Present',
+  'https://example.com/images/portfolio.png',
+  'https://github.com/DylanCoon99/portfolio',
+  'A personal portfolio website built with Go and PostgreSQL, showcasing projects and contact information.'
+),
+(
+  'Crypto Micro-Investing App',
+  'Nov 2023 - Feb 2024',
+  'https://example.com/images/cryptoapp.png',
+  'https://github.com/',
+  'A mobile app that rounds up everyday purchases and invests the spare change into cryptocurrency.'
+),
+(
+  'Redis Clone in Go',
+  'Mar 2024 - Apr 2024',
+  'https://example.com/images/redisclone.png',
+  'https://github.com/',
+  'A basic Redis clone built from scratch in Go, implementing core data structures and commands.'
+);
+
+
+
+
+
+
+Admin portal design
+- small app;
+	- I provide credentials
+	- Credentials are verfied --> server returns a jwt
+	- Takes me to a project submission page where I can post projects and modify old projects

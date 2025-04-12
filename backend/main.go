@@ -6,10 +6,13 @@ import (
 	"fmt"	
 	"log"
 	//"net/http"
+	"time"
 	"github.com/gin-gonic/gin"
+	"github.com/gin-contrib/cors"
 	"github.com/joho/godotenv"
 	"github.com/DylanCoon99/portfolio/backend/database"
 	"github.com/DylanCoon99/portfolio/backend/controllers"
+	"github.com/DylanCoon99/portfolio/backend/middleware"
 )
 
 
@@ -40,6 +43,15 @@ func main() {
 
 	r := gin.Default()
 
+	r.Use(cors.New(cors.Config{
+        AllowOrigins:     []string{"http://localhost:3000"}, // Frontend URL
+        AllowMethods:     []string{"GET", "POST", "PUT", "DELETE"},
+        AllowHeaders:     []string{"Content-Type", "Authorization"},
+        ExposeHeaders:    []string{"Content-Length"},
+        AllowCredentials: true,
+        MaxAge:           12 * time.Hour,
+    }))
+
 	// Define our routes here
 	api := r.Group("/api")
 	{
@@ -49,14 +61,17 @@ func main() {
 		api.GET("/projects/:project_id", controllers.GetProjectByID)
 		// GET pictures
 		api.GET("/images", controllers.GetAllImages)
-		// 
+		// login endpoint
+		api.POST("/login", controllers.Login)
 
 
 	}
-	//protected := r.Group("/api/admin")
+	protected := r.Group("/api/admin")
 	// Need to create a JWT autheticator for admin panel
 	// include special admin apis for adding new projects and pictures
-
+	protected.Use(middleware.JwtAuthMiddleware())
+	protected.POST("/projects", controllers.CreateProject)
+	
 
 	r.Run()
 

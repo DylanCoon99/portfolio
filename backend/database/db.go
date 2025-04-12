@@ -21,10 +21,10 @@ func ConnectDB(dsn string) error {
 	
 
 	// DROP TABLES
-	/*
-	DB.Migrator().DropTable(&models.Listing{})
+	
+	//DB.Migrator().DropTable(&models.Project{})
 
-	*/
+	
 	
 
 
@@ -70,4 +70,11 @@ func GetProjectByID(project_id string) (*models.Project, error){
 	}
 
 	return &project, nil
+}
+
+
+
+func CreateProject(project *models.Project) error {
+	result := DB.Create(project)
+	return result.Error
 }

@@ -1,4 +1,4 @@
-package token
+package utils
 
 
 import (
@@ -13,7 +13,7 @@ import (
 )
 
 
-func GenerateToken(user_id int) (string, error) {
+func GenerateToken(username string) (string, error) {
 
 	token_lifespan, err := strconv.Atoi(os.Getenv("TOKEN_HOUR_LIFESPAN"))
 
@@ -23,7 +23,7 @@ func GenerateToken(user_id int) (string, error) {
 
 	claims := jwt.MapClaims{}
 	claims["authorized"] = true
-	claims["user_id"] = user_id
+	claims["username"] = username
 	claims["exp"] = time.Now().Add(time.Hour * time.Duration(token_lifespan)).Unix()
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
 
@@ -58,7 +58,7 @@ func ExtractToken(c *gin.Context) string {
 	return ""
 }
 
-func ExtractTokenID(c *gin.Context) (uint, error) {
+func ExtractTokenUsername(c *gin.Context) (uint, error) {
 
 	tokenString := ExtractToken(c)
 	token, err := jwt.Parse(tokenString, func(token *jwt.Token) (interface{}, error) {
@@ -72,7 +72,7 @@ func ExtractTokenID(c *gin.Context) (uint, error) {
 	}
 	claims, ok := token.Claims.(jwt.MapClaims)
 	if ok && token.Valid {
-		uid, err := strconv.ParseUint(fmt.Sprintf("%.0f", claims["user_id"]), 10, 32)
+		uid, err := strconv.ParseUint(fmt.Sprintf("%.0f", claims["username"]), 10, 32)
 		if err != nil {
 			return 0, err
 		}

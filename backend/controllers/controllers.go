@@ -5,7 +5,7 @@ import (
 	"net/http"
 	"github.com/gin-gonic/gin"
 	"github.com/DylanCoon99/portfolio/backend/database"
-	//"github.com/DylanCoon99/portfolio/backend/models"
+	"github.com/DylanCoon99/portfolio/backend/models"
 )
 
 
@@ -39,9 +39,35 @@ func GetProjectByID(c *gin.Context) {
 }
 
 
+func CreateProject(c *gin.Context) {
+
+	var newProject models.Project
+
+	if err := c.ShouldBindJSON(&newProject); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid Input", "details": err.Error()})
+		return
+	}
+
+	if err := database.CreateProject(&newProject); err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to create project", "details": err.Error()})
+		return
+	}
+
+	c.JSON(http.StatusCreated, newProject)
+
+}
+
 
 func GetAllImages(c *gin.Context) {
 
+
+	c.JSON(http.StatusOK, gin.H{"resp": "to be implemented"})
+
+}
+
+
+
+func TestAuth(c *gin.Context) {
 
 	c.JSON(http.StatusOK, gin.H{"resp": "to be implemented"})
 
