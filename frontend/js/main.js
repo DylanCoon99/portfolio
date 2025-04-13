@@ -36,8 +36,9 @@ function loadProjects() {
 
 // Handle contact form (no backend yet)
 function setupContactForm() {
-  const form = document.querySelector('form');
-  form.addEventListener('submit', e => {
+  const form = document.querySelector('#contact-form');
+
+  form.addEventListener('submit', async e => {
     e.preventDefault();
 
     const name = form.querySelector('#name').value.trim();
@@ -49,9 +50,25 @@ function setupContactForm() {
       return;
     }
 
-    // TODO: Send to backend
-    alert('Thanks for your message! (Not actually sent yet.)');
+    try {
+      const res = await fetch("http://localhost:8080/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, email, message })
+      });
 
-    form.reset();
+      const result = await res.json();
+
+      if (res.ok) {
+        alert(result.message || "Message sent!");
+        form.reset();
+      } else {
+        alert(result.message || "Failed to send message.");
+      }
+    } catch (error) {
+      console.error("Error sending message:", error);
+      alert("Something went wrong. Please try again later.");
+    }
   });
 }
+

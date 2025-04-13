@@ -1,13 +1,21 @@
 package controllers
 
 import (
-	//"fmt"
+	"fmt"
+	"os"
 	"net/http"
+	"net/smtp"
 	"github.com/gin-gonic/gin"
 	"github.com/DylanCoon99/portfolio/backend/database"
 	"github.com/DylanCoon99/portfolio/backend/models"
 )
 
+
+type ContactForm struct {
+	Name    string `json:"name"`
+	Email   string `json:"email"`
+	Message string `json:"message"`
+}
 
 
 
@@ -67,8 +75,38 @@ func GetAllImages(c *gin.Context) {
 
 
 
-func TestAuth(c *gin.Context) {
+func Contact(c *gin.Context) {
 
-	c.JSON(http.StatusOK, gin.H{"resp": "to be implemented"})
 
+	var newContactForm ContactForm
+
+	if err := c.ShouldBindJSON(&newContactForm); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid Input", "details": err.Error()})
+		return
+	}
+
+	// Send email
+	name    := newContactForm.Name
+	email   := newContactForm.Email
+	message := newContactForm.Message
+
+	myEmail := "dylcoon99@gmail.com"
+	password := os.Getenv("EMAIL_PASSWORD")
+	smtpHost := "smtp.gmail.com"
+    smtpPort := "587"
+    body := fmt.Sprintf("Name: %s\nEmail: %s\nMessage:\n%s", name, email, message)
+
+	auth := smtp.PlainAuth("", myEmail, password, smtpHost)
+	err := smtp.SendMail(smtpHost+":"+smtpPort, auth, myEmail, []string{myEmail}, []byte("Subject: New Portfolio Message\r\n\r\n" + body))
+
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to send email", "details": err.Error()} )
+		return
+	}
+
+	c.JSON(http.StatusCreated, newContactForm)
+	return
 }
+
+
+

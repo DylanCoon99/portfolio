@@ -65,6 +65,8 @@ func main() {
 		api.GET("/images", controllers.GetAllImages)
 		// login endpoint
 		api.POST("/login", controllers.Login)
+		// POST contact
+		api.POST("/contact", controllers.Contact)
 
 
 	}
