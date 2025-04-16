@@ -34,6 +34,9 @@ function loadProjects() {
     });
 }
 
+
+
+
 // Handle contact form (no backend yet)
 function setupContactForm() {
   const form = document.querySelector('#contact-form');
@@ -50,6 +53,8 @@ function setupContactForm() {
       return;
     }
 
+    console.log("Preparing to send request...")
+
     try {
       const res = await fetch("http://localhost:8080/api/contact", {
         method: "POST",
@@ -59,11 +64,13 @@ function setupContactForm() {
 
       const result = await res.json();
 
+      console.log(result)
+
       if (res.ok) {
-        alert(result.message || "Message sent!");
+        alert("Message sent! I will get back to you as soon as I can!");
         form.reset();
       } else {
-        alert(result.message || "Failed to send message.");
+        alert("Failed to send message.");
       }
     } catch (error) {
       console.error("Error sending message:", error);

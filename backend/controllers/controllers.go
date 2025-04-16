@@ -5,6 +5,7 @@ import (
 	"os"
 	"net/http"
 	"net/smtp"
+	"path/filepath"
 	"github.com/gin-gonic/gin"
 	"github.com/DylanCoon99/portfolio/backend/database"
 	"github.com/DylanCoon99/portfolio/backend/models"
@@ -108,5 +109,36 @@ func Contact(c *gin.Context) {
 	return
 }
 
+
+func UploadImage(c *gin.Context) {
+
+	file, err := c.FormFile("file")
+
+	project_id := c.Param("project_id")
+
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "No file found."})
+		return
+	}
+
+	path := filepath.Join("static/images", file.Filename)
+
+	if err := c.SaveUploadedFile(file, path); err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to upload image."})
+		return
+	}
+
+	// update the path in the database
+	if err := database.UploadImage(project_id, file.Filename); err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to update image path in database."})
+		return
+	}
+
+
+	c.JSON(http.StatusOK, gin.H{"path": "/images" + file.Filename})
+
+	return
+
+}
 
 

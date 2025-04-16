@@ -46,7 +46,7 @@ func main() {
 	r.Use(cors.New(cors.Config{
         AllowOrigins:     []string{"http://localhost:3000"}, // Frontend URL
         AllowMethods:     []string{"GET", "POST", "PUT", "DELETE"},
-        AllowHeaders:     []string{"Content-Type", "Authorization"},
+        AllowHeaders:     []string{"Origin", "Content-Type", "Authorization"},
         ExposeHeaders:    []string{"Content-Length"},
         AllowCredentials: true,
         MaxAge:           12 * time.Hour,
@@ -70,11 +70,13 @@ func main() {
 
 
 	}
+	r.Static("/images", "./static/images")
 	protected := r.Group("/api/admin")
 	// Need to create a JWT autheticator for admin panel
 	// include special admin apis for adding new projects and pictures
 	protected.Use(middleware.JwtAuthMiddleware())
 	protected.POST("/projects", controllers.CreateProject)
+	protected.POST("/projects/:project_id/upload-image", controllers.UploadImage)
 	
 
 	r.Run()

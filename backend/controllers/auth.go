@@ -3,7 +3,7 @@ package controllers
 
 import (
 	"os"
-	"log"
+	//"log"
 	"errors"
 	"net/http"
 	"github.com/gin-gonic/gin"
@@ -67,7 +67,7 @@ func VerifyLogin(input LoginInput) (string, error) {
 	ADMIN_PW   := os.Getenv("ADMIN_PW")
 
 
-	log.Printf("DEBUG: %s %s\n", ADMIN_USER, ADMIN_PW)
+	//log.Printf("DEBUG: %s %s\n", ADMIN_USER, ADMIN_PW)
 
 	verify := VerifyUsernameAndPassword(input.Password, ADMIN_PW, input.Username, ADMIN_USER)
 

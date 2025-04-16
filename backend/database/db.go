@@ -78,3 +78,11 @@ func CreateProject(project *models.Project) error {
 	result := DB.Create(project)
 	return result.Error
 }
+
+
+
+func UploadImage(id, path string) error {
+
+	result := DB.Model(&models.Project{}).Where("project_id = ?", id).Update("image_url", path)
+	return result.Error
+}
