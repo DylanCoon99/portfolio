@@ -4,25 +4,56 @@
   <meta charset="UTF-8">
   <title>About Me</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style2.css">
+  <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <header>
-    <h1>Dylan Coon</h1>
-    <nav>
-      <a href="index.html">About Me</a>
-      <a href="projects.html">Projects</a>
-      <a href="contact.html">Contact</a>
+<header class="site-header">
+  <div class="header-container">
+    <div class="profile-image">
+      <img src="images/profile_pic.jpg" alt="Your Name">
+    </div>
+
+    <nav class="navbar">
+      <ul class="nav-links">
+        <li><a href="index.html">About Me</a></li>
+        <li><a href="projects.html">Projects</a></li>
+        <li><a href="contact.html">Contact Me</a></li>
+      </ul>
     </nav>
-  </header>
+  </div>
+</header>
+
 
   <main>
-    <section id="about">
+    <section id="about" class = "about-section">
       <h2>About Me</h2>
-      <p>Hi! I'm a developer building awesome tools with Go and PostgreSQL.</p>
+      <p>
+        Hi! My name is Dylan Coon and I am from Erie, Pennsylvania. I’m a software engineer with a strong foundation in computer science and a passion for solving complex problems. I graduated from Penn State University with a degree in Computer Science and a minor in Mathematics, where I built a deep understanding of algorithms, systems, and logical thinking — skills I apply daily in my work and personal projects.
+      </p>
+
+
+      <p>
+        <figure class="left-image">
+          <img src="images/acadia1.jpg" alt="acadia1"/>
+          <figcaption>Taken in Acadia National Park</figcaption>
+        </figure>
+        Currently, I’m a software engineer at Iron Mountain, where I work as software engineer on a application support team. I spend most of my time on the job writing python scripts to automate workflows in the team. I enjoy working with data, writing clean and efficient APIs, and diving into the kind of technical challenges. My main interests and ambitions lie in backend development, distributed systems, and machine learning, and I’m always exploring new tools and technologies to deepen my understanding.
+      </p>
+
+      <p>
+        <figure class="right-image">
+          <img src="images/yankee1.jpg" alt="yankee1"/>
+          <figcaption>My dog Yankee</figcaption>
+        </figure>
+        Outside of work, I like to be outside and spend time with my dog Yankee. I am also an avid rock climber — I love the mental and physical puzzle that each climb presents. It’s a great complement to my love of problem-solving in software. Whether it’s debugging a tricky issue or finding the optimal route up a boulder, I’m always looking for the next challenge to take on and learn from.
+      </p>
     </section>
   </main>
 
   <script src="js/main.js"></script>
+
+  <footer>
+    &copy; 2025 Dylan Coon. All rights reserved.
+  </footer>
 </body>
 </html>
