@@ -10,6 +10,8 @@ import (
 
 var DB *gorm.DB
 
+
+
 func ConnectDB(dsn string) error {
 	var err error
 	DB, err = gorm.Open(postgres.Open(dsn), &gorm.Config{})
@@ -85,4 +87,17 @@ func UploadImage(id, path string) error {
 
 	result := DB.Model(&models.Project{}).Where("project_id = ?", id).Update("image_url", path)
 	return result.Error
+}
+
+
+func GetImagePath(project_id string) (string, error) {
+
+	var imagePath string
+
+
+	if err := DB.Table("projects").Select("image_url").Where("project_id = ?", project_id).Scan(&imagePath).Error; err != nil {
+		return "", err
+	}
+
+	return imagePath, nil
 }

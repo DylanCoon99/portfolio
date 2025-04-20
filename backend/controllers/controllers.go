@@ -3,8 +3,11 @@ package controllers
 import (
 	"fmt"
 	"os"
+	//"log"
+	//"bytes"
 	"net/http"
 	"net/smtp"
+	//"image/jpeg"
 	"path/filepath"
 	"github.com/gin-gonic/gin"
 	"github.com/DylanCoon99/portfolio/backend/database"
@@ -67,12 +70,32 @@ func CreateProject(c *gin.Context) {
 }
 
 
-func GetAllImages(c *gin.Context) {
+func GetImageForProject(c *gin.Context) {
 
+	project_id := c.Param("project_id")
 
-	c.JSON(http.StatusOK, gin.H{"resp": "to be implemented"})
+	// get image path from database
+	path, err := database.GetImagePath(project_id)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to locate image path", "details": err.Error()})
+	}
+
+	//load the image from the path
+	/*
+
+	file, err := os.Open(path)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to open image file"})
+		return
+	}
+	*/
+	
+	c.Header("Content-Type", "image/jpeg")
+
+	c.File(path)
 
 }
+
 
 
 

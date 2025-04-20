@@ -61,8 +61,8 @@ func main() {
 		api.GET("/projects", controllers.GetAllProjects)
 		// GET project by id
 		api.GET("/projects/:project_id", controllers.GetProjectByID)
-		// GET pictures
-		api.GET("/images", controllers.GetAllImages)
+		// GET picture for a project
+		api.GET("/projects/:project_id/image", controllers.GetImageForProject)
 		// login endpoint
 		api.POST("/login", controllers.Login)
 		// POST contact
