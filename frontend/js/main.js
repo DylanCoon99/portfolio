@@ -1,13 +1,21 @@
 document.addEventListener('DOMContentLoaded', () => {
   const path = window.location.pathname;
 
+  /*
   if (path.includes('projects.html')) {
     loadProjects();
   }
 
+  
+
   if (path.includes('contact.html')) {
     setupContactForm();
   }
+
+  */
+  loadProjects();
+  setupContactForm();
+
 });
 
 // Load and display projects
@@ -67,7 +75,7 @@ function setupContactForm() {
       console.log(result)
 
       if (res.ok) {
-        alert("Message sent! I will get back to you as soon as I can!");
+        alert("Message sent! I look forward to speaking with you!");
         form.reset();
       } else {
         alert("Failed to send message.");
