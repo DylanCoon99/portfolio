@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Load and display projects
 function loadProjects() {
-  fetch('/api/projects')
+  fetch('https://portfolio-04d9.onrender.com/api/projects')
     .then(res => res.json())
     .then(projects => {
       const projectList = document.getElementById('project-list');
@@ -64,7 +64,7 @@ function setupContactForm() {
     console.log("Preparing to send request...")
 
     try {
-      const res = await fetch("http://localhost:8080/api/contact", {
+      const res = await fetch("https://portfolio-04d9.onrender.com/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ name, email, message })

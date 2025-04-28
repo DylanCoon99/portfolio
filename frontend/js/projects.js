@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   const container = document.getElementById('project-list');
 
   try {
-    const response = await fetch('http://portfolio-04d9:10000/api/projects');
+    const response = await fetch('https://portfolio-04d9.onrender.com/api/projects');
     const projects = await response.json();
 
     for (const project of projects) {
@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 async function loadImage(projectId) {
 
-  const response = await fetch(`http://localhost:8080/api/projects/${projectId}/image`);
+  const response = await fetch(`https://portfolio-04d9.onrender.com/api/projects/${projectId}/image`);
 
   if (!response.ok) {
     console.error("Failed to load image");

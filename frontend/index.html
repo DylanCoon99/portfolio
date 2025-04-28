@@ -30,15 +30,19 @@
     <section id="about" class="about-section">
       <h2>About Me</h2>
       <p>
-        Hi! My name is Dylan Coon and I am from Erie, Pennsylvania. I’m a software engineer with a strong foundation in computer science and a passion for solving complex problems. I graduated from Penn State University with a degree in Computer Science and a minor in Mathematics, where I built a deep understanding of algorithms, systems, and logical thinking — skills I apply daily in my work and personal projects.
+        <figure class="right-image">
+          <img src="images/smokies1.jpg" alt="Smokies" />
+          <figcaption>The Great Smoky Mountains</figcaption>
+        </figure>
+        Hi! My name is Dylan Coon and I am from Erie, Pennsylvania. I’m a software engineer with a strong foundation in computer science and a passion for solving complex problems. I graduated from Penn State University with a degree in Computer Science and a minor in Mathematics, where I built a deep understanding of algorithms, systems, and logical thinking - skills I apply daily in my work and personal projects. I am proficient in Go, Python, C and familiar with Javascript. I have worked with GCP quite a bit as well as AWS on occasion. I am always eager to learn new languages and tools.
       </p>
 
       <p>
         <figure class="left-image">
           <img src="images/acadia1.jpg" alt="Acadia National Park" />
-          <figcaption>Taken in Acadia National Park</figcaption>
+          <figcaption>Acadia National Park</figcaption>
         </figure>
-        Currently, I’m a software engineer at Iron Mountain, where I work on an application support team. I spend most of my time writing Python scripts to automate workflows. I enjoy working with data, writing clean APIs, and diving into technical challenges. My main interests lie in backend development, distributed systems, and machine learning.
+        I started my career as an intern at Iron Mountain - an information management company known for their cloud based solutions they provide to hundreds of clients globally. As an intern, I worked on a ML team that specialize in model optimization and refactoring for intelligent document processing. I wrote python code to extract signatures from documents and structure training data in a concurrent manner using a threading library. Currently, I’m a software engineer at the company, where I work on an application support team. I spend most of my time leveraging my Python skills to automate workflows, gather metrics, and monitor cloud environments. I also help validate new releases in production. I enjoy working with data, writing clean APIs, and diving into technical challenges. My main interests lie in backend development, distributed systems, and machine learning.
       </p>
 
       <p>
@@ -46,7 +50,7 @@
           <img src="images/yankee1.jpg" alt="My dog Yankee" />
           <figcaption>My dog Yankee</figcaption>
         </figure>
-        Outside of work, I like to be outside and spend time with my dog Yankee. I am also an avid rock climber — I love the mental and physical puzzle that each climb presents. It’s a great complement to my love of problem-solving in software.
+        Outside of work, I like to be outside and spend time with my dog Yankee. I am also an avid rock climber — I love the mental and physical puzzle that each climb presents. It’s a great complement to my love of problem-solving in software. If you'd like to connect, don't hesitate to leave me a message below.
       </p>
     </section>
 
@@ -75,5 +79,20 @@
 
   <script src="js/main.js"></script>
   <script src="js/projects.js"></script>
+
+  <script>
+    const header = document.querySelector('.site-header');
+    header.classList.add('fade');
+
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 10) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+    });
+  </script>
+
+
 </body>
 </html>
