@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   */
-  loadProjects();
+  //loadProjects();
   setupContactForm();
 
 });
